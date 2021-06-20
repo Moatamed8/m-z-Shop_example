@@ -39,6 +39,8 @@ class ProductProvider with ChangeNotifier {
       if (res.statusCode >= 400) {
         _setFavValue(oldStatus);
       }
-    } catch (e) {}
+    } catch (e) {
+      _setFavValue(oldStatus);
+    }
   }
 }

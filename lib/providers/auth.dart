@@ -84,12 +84,15 @@ class AuthProvider with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    if (prefs.containsKey('userData')) return false;
+    if (!prefs.containsKey('userData')) return false;
 
     final Map<String, Object> extractedData =
         jsonDecode(prefs.getString('userData')) as Map<String, Object>;
+
+
     final expiryDate = DateTime.parse(extractedData['expiryDate']);
     if (expiryDate.isBefore(DateTime.now())) return false;
+
     _token = extractedData['token'];
     _userId = extractedData['userId'];
     _expiryDate = expiryDate;
