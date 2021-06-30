@@ -57,7 +57,6 @@ class AuthProvider with ChangeNotifier {
 
       print(_expiryDate);
 
-      _autoLogOut();
       notifyListeners();
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -98,7 +97,6 @@ class AuthProvider with ChangeNotifier {
     _expiryDate = expiryDate;
 
     notifyListeners();
-    _autoLogOut();
 
     return true;
   }

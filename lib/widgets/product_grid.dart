@@ -29,18 +29,22 @@ class ProductGrid extends StatelessWidget {
                 press: () =>
                     Navigator.pushNamed(context, AllProducts.routeName)),
           ),
-          products.isEmpty ? Text("There is no product!"):GridView.builder(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: products.length<=4?products.length:4,
-              itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                    value: products[i],
-                    child: ProductItem(),
-                  ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 2 / 2.5,
-                  crossAxisSpacing: 10)),
+          products.isEmpty ? Text("There is no product!"):Container(
+            height: 200,
+            child: ListView.builder(
+              //  physics: ScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: products.length<=4?products.length:4,
+                itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                      value: products[i],
+                      child: ProductItem(),
+                    ),
+               /* gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2 / 2.5,
+                    crossAxisSpacing: 10)*/),
+          ),
         ],
       ),
     );

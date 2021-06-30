@@ -8,10 +8,13 @@ import 'package:shop/widgets/icon_btn_with_counter.dart';
 import 'package:shop/widgets/product_grid.dart';
 
 import 'package:shop/widgets/search_field.dart';
+import 'package:shop/widgets/shimmer_item.dart';
 import '../config/size_config.dart';
 import '../config/enums.dart';
 import '../widgets/home/discount_banner.dart';
 import '../widgets/home/categories.dart';
+
+import 'package:shimmer/shimmer.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   static const routeName = '/productoverview-screen';
@@ -52,12 +55,14 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   children: [
                     SearchField(),
                     Consumer<CartProvider>(
-                      builder: (_, cart, ch) => IconBtnWithCounter(
-                        svgSrc: "assets/icons/Cart Icon.svg",
-                        numOfitem: cart.itemCount,
-                        press: () =>
-                            Navigator.pushNamed(context, CartScreen.routeName),
-                      ),
+                      builder: (_, cart, ch) =>
+                          IconBtnWithCounter(
+                            svgSrc: "assets/icons/Cart Icon.svg",
+                            numOfitem: cart.itemCount,
+                            press: () =>
+                                Navigator.pushNamed(context,
+                                    CartScreen.routeName),
+                          ),
                     ),
                     PopupMenuButton(
                       onSelected: (FilterOption selectedVal) {
@@ -70,7 +75,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                         });
                       },
                       icon: Icon(Icons.more_vert),
-                      itemBuilder: (_) => [
+                      itemBuilder: (_) =>
+                      [
                         PopupMenuItem(
                           child: Text('Only Favourite'),
                           value: FilterOption.Favourite,
@@ -87,7 +93,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               Categories(),
               SpecialOffers(),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? ShimmerItem()
                   : ProductGrid(_showOnlyFavorites)
             ],
           ),

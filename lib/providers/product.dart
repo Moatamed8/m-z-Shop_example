@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:shop/models/http_exception.dart';
-
 class ProductProvider with ChangeNotifier {
   final String id;
   final String title;

@@ -81,6 +81,15 @@ class ProductItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50),
                           onTap: () {
                             productsa.toggleFavoriteStatus(authData.token, authData.userId);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:product.isFavorite?Text("Added to Your Favorite!"):Text("Cleared From Your Favorite!") ,
+                              duration: Duration(seconds: 2),
+                              action: SnackBarAction(label: 'UNDO!',onPressed: (){
+                                productsa.toggleFavoriteStatus(authData.token, authData.userId);
+
+                              },),
+                            ));
                           },
                           child: Container(
                             padding: EdgeInsets.all(getProportionateScreenWidth(8)),
