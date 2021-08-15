@@ -1,11 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/providers/product.dart';
 import 'package:shop/providers/products.dart';
 import 'package:shop/widgets/product_item.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends StatefulWidget {
   static const routeName='/favorite-screen';
+
+  @override
+  _FavoriteScreenState createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+
 
   @override
   Widget build(BuildContext context) {

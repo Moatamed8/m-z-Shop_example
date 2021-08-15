@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:shop/config/color_config.dart';
 import 'package:shop/config/size_config.dart';
 import 'package:shop/providers/auth.dart';
 import 'package:shop/providers/cart.dart';
 import 'package:shop/providers/products.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/product-details';
@@ -17,7 +18,6 @@ class ProductDetailScreen extends StatelessWidget {
     final cart = Provider.of<CartProvider>(context, listen: false);
     final productId = ModalRoute.of(context).settings.arguments as String;
     final authData = Provider.of<AuthProvider>(context, listen: false);
-
 
     final loadedProduct = Provider.of<ProductsProvider>(context, listen: false)
         .findById(productId);
@@ -34,8 +34,6 @@ class ProductDetailScreen extends StatelessWidget {
                   fontSize: getProportionateScreenWidth(22),
                   fontWeight: FontWeight.w700,
                   color: Colors.grey,
-
-
                 ),
               ),
               background: Hero(
@@ -50,7 +48,7 @@ class ProductDetailScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                SizedBox(height:getProportionateScreenHeight(10)),
+                SizedBox(height: getProportionateScreenHeight(10)),
                 Text(
                   '\$${loadedProduct.price}',
                   style: TextStyle(
@@ -60,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height:getProportionateScreenHeight(10)),
+                SizedBox(height: getProportionateScreenHeight(10)),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 10),
@@ -81,33 +79,59 @@ class ProductDetailScreen extends StatelessWidget {
                     padding: EdgeInsets.all(getProportionateScreenWidth(15)),
                     width: getProportionateScreenWidth(64),
                     decoration: BoxDecoration(
-                     color:
-                      loadedProduct.isFavorite ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
+                      color: loadedProduct.isFavorite
+                          ? Color(0xFFFFE6E6)
+                          : Color(0xFFF5F6F9),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                       ),
                     ),
                     child: InkWell(
-                      onTap: (){
-                        loadedProduct.toggleFavoriteStatus(authData.token, authData.userId);
-
+                      onTap: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.redAccent,
+                          content: Row(
+                            children: [
+                              Container(
+                                height: getProportionateScreenWidth(24),
+                                width: getProportionateScreenWidth(24),
+                                child: SvgPicture.asset(
+                                  "assets/icons/Error.svg",
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Text(
+                                  "Sorry just from outside",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ],
+                          ),
+                          duration: Duration(seconds: 2),
+                        ));
                       },
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
-                        color:
-                        loadedProduct.isFavorite ? Color(0xFFFF4848) : Color(0xFFDBDEE4),
+                        color: loadedProduct.isFavorite
+                            ? Color(0xFFFF4848)
+                            : Color(0xFFDBDEE4),
                         height: getProportionateScreenWidth(16),
                       ),
                     ),
                   ),
                 ),
-                ],
+              ],
             ),
           )
         ],
       ),
-      bottomNavigationBar:  Container(
+      bottomNavigationBar: Container(
         margin: EdgeInsets.only(top: getProportionateScreenWidth(20)),
         padding: EdgeInsets.only(top: getProportionateScreenWidth(20)),
         width: double.infinity,
@@ -118,7 +142,7 @@ class ProductDetailScreen extends StatelessWidget {
             topRight: Radius.circular(40),
           ),
         ),
-        child:  Padding(
+        child: Padding(
           padding: EdgeInsets.only(
             left: SizeConfig.screenWidth * 0.15,
             right: SizeConfig.screenWidth * 0.15,
@@ -129,18 +153,40 @@ class ProductDetailScreen extends StatelessWidget {
             width: double.infinity,
             height: getProportionateScreenHeight(56),
             child: FlatButton(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
               color: kPrimaryColor,
-              onPressed: (){
-                cart.addItem(loadedProduct.id, loadedProduct.price, loadedProduct.title, loadedProduct.imageUrl);
+              onPressed: () {
+                cart.addItem(loadedProduct.id, loadedProduct.price,
+                    loadedProduct.title, loadedProduct.imageUrl);
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Added to cart!"),
+                  content: Row(
+                    children: [
+                      Container(
+                        height: getProportionateScreenWidth(28),
+                        width: getProportionateScreenWidth(28),
+                        child: SvgPicture.asset(
+                          "assets/icons/Success.svg",
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "Added to cart!",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
-                  action: SnackBarAction(label: 'UNDO!',onPressed: (){
-                    cart.removeSingleItem(loadedProduct.id);
-
-                  },),
+                  action: SnackBarAction(
+                    label: 'UNDO!',
+                    textColor: Colors.black,
+                    onPressed: () {
+                      cart.removeSingleItem(loadedProduct.id);
+                    },
+                  ),
                 ));
               },
               child: Text(

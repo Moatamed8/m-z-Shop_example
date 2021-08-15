@@ -41,4 +41,5 @@ class ProductProvider with ChangeNotifier {
       _setFavValue(oldStatus);
     }
   }
+
 }

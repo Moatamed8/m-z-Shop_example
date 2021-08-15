@@ -9,34 +9,29 @@ import 'package:shop/providers/product.dart';
 import 'package:shop/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
-   ProductItem({
+  ProductItem({
     Key key,
     this.width = 140,
     this.aspectRetio = 1.02,
-
   }) : super(key: key);
 
   final double width, aspectRetio;
 
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-     final product = Provider.of<ProductProvider>(context, listen: false);
+    final product = Provider.of<ProductProvider>(context, listen: false);
     final cart = Provider.of<CartProvider>(context, listen: false);
     final authData = Provider.of<AuthProvider>(context, listen: false);
-
 
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () =>
-              Navigator.pushNamed(
-                context,
-                ProductDetailScreen.routeName,arguments: product.id
-              ),
+          onTap: () => Navigator.pushNamed(
+              context, ProductDetailScreen.routeName,
+              arguments: product.id),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,9 +46,13 @@ class ProductItem extends StatelessWidget {
                   child: Hero(
                     tag: product.id,
                     child: FadeInImage(
-                      image: NetworkImage(product.imageUrl,),fit: BoxFit.cover,
-                      placeholder: AssetImage(
-                          'assets/images/product-placeholder.png'),),
+                      image: NetworkImage(
+                        product.imageUrl,
+                      ),
+                      fit: BoxFit.cover,
+                      placeholder:
+                          AssetImage('assets/images/product-placeholder.png'),
+                    ),
                   ),
                 ),
               ),
@@ -77,22 +76,29 @@ class ProductItem extends StatelessWidget {
                   Row(
                     children: [
                       Consumer<ProductProvider>(
-                        builder: (ctx,productsa,_) => InkWell(
+                        builder: (ctx, productsa, _) => InkWell(
                           borderRadius: BorderRadius.circular(50),
                           onTap: () {
-                            productsa.toggleFavoriteStatus(authData.token, authData.userId);
+                            productsa.toggleFavoriteStatus(
+                                authData.token, authData.userId);
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content:product.isFavorite?Text("Added to Your Favorite!"):Text("Cleared From Your Favorite!") ,
+                              content: product.isFavorite
+                                  ? Text("Added to Your Favorite!")
+                                  : Text("Cleared From Your Favorite!"),
                               duration: Duration(seconds: 2),
-                              action: SnackBarAction(label: 'UNDO!',onPressed: (){
-                                productsa.toggleFavoriteStatus(authData.token, authData.userId);
-
-                              },),
+                              action: SnackBarAction(
+                                label: 'UNDO!',
+                                onPressed: () {
+                                  productsa.toggleFavoriteStatus(
+                                      authData.token, authData.userId);
+                                },
+                              ),
                             ));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+                            padding:
+                                EdgeInsets.all(getProportionateScreenWidth(8)),
                             height: getProportionateScreenWidth(28),
                             width: getProportionateScreenWidth(28),
                             decoration: BoxDecoration(
@@ -109,46 +115,65 @@ class ProductItem extends StatelessWidget {
                             ),
                           ),
                         ),
-
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(50),
                           onTap: () {
-                            cart.addItem(product.id, product.price, product.title, product.imageUrl);
+                            cart.addItem(product.id, product.price,
+                                product.title, product.imageUrl);
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Added to cart!"),
+                              content: Row(
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenWidth(28),
+                                    width: getProportionateScreenWidth(28),
+                                    child: SvgPicture.asset(
+                                      "assets/icons/Success.svg",
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Added to cart!",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                              backgroundColor: Colors.green,
                               duration: Duration(seconds: 2),
-                              action: SnackBarAction(label: 'UNDO!',onPressed: (){
-                                cart.removeSingleItem(product.id);
-
-                              },),
+                              action: SnackBarAction(
+                                label: 'UNDO!',
+                                textColor: Colors.black,
+                                onPressed: () {
+                                  cart.removeSingleItem(product.id);
+                                },
+                              ),
                             ));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+                            padding:
+                                EdgeInsets.all(getProportionateScreenWidth(8)),
                             height: getProportionateScreenWidth(28),
                             width: getProportionateScreenWidth(28),
                             decoration: BoxDecoration(
-                              color: product.isFavorite
-                                  ? kPrimaryColor.withOpacity(0.15)
-                                  : kSecondaryColor.withOpacity(0.1),
+                              color:
+
+                                   kSecondaryColor.withOpacity(0.1),
                               shape: BoxShape.circle,
                             ),
                             child: SvgPicture.asset(
-                                "assets/icons/Cart Icon.svg",
-                                color:Color(0xFFFF4848),
+                              "assets/icons/Cart Icon.svg",
+                              color: Color(0xFFFF4848),
                             ),
-
                           ),
                         ),
                       ),
                     ],
-
                   ),
-
                 ],
               )
             ],

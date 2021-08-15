@@ -24,6 +24,8 @@ class _DefaultButtonState extends State<DefaultButton> {
       width: double.infinity,
       height: getProportionateScreenHeight(56),
       child: FlatButton(
+        disabledColor: Colors.grey,
+        disabledTextColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: kPrimaryColor,
         onPressed: (widget.cart.totalAmount <= 0 || _isLoading)
@@ -34,10 +36,10 @@ class _DefaultButtonState extends State<DefaultButton> {
                 });
                 await Provider.of<OrdersProvider>(context, listen: false)
                     .addOrder(widget.cart.items.values.toList(),
-                        widget.cart.totalAmount);
-                setState(() {
+                        widget.cart.totalAmount).then((value) =>  setState(() {
                   _isLoading = false;
-                });
+                }));
+
                 widget.cart.clear();
               },
         child: _isLoading

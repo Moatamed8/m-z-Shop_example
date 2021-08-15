@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop/config/size_config.dart';
 import 'package:shop/screens/all_products.dart';
+/*import 'package:shop/screens/categories/cars_screens.dart';
+import 'package:shop/screens/categories/electronics_screen.dart';
+import 'package:shop/screens/categories/game_Screen.dart';
+import 'package:shop/screens/categories/gifts_screens.dart';*/
+
+
 
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
+      {"icon": "assets/icons/Flash Icon.svg", "text": "Electronics",'press':()=> Navigator.pushNamed(context, AllProducts.routeName),
+      },
+      {"icon": "assets/icons/Bill Icon.svg", "text": "Cars",'press':()=> Navigator.pushNamed(context, AllProducts.routeName)},
+      {"icon": "assets/icons/Game Icon.svg", "text": "Game",'press':()=> Navigator.pushNamed(context, AllProducts.routeName)},
+      {"icon": "assets/icons/Gift Icon.svg", "text": "Gift",'press':()=> Navigator.pushNamed(context, AllProducts.routeName)},
+      {"icon": "assets/icons/Discover.svg", "text": "More",'press':()=> Navigator.pushNamed(context, AllProducts.routeName)},
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
@@ -24,8 +31,8 @@ class Categories extends StatelessWidget {
           (index) => CategoryCard(
             icon: categories[index]["icon"],
             text: categories[index]["text"],
-            press:() =>
-                Navigator.pushNamed(context, AllProducts.routeName),
+            press:categories[index]["press"],
+
           ),
         ),
       ),

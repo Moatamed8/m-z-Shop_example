@@ -11,13 +11,24 @@ import '../screens/all_products.dart';
 import '../screens/settings.dart';
 import '../screens/favorite_screen.dart';
 import '../screens/product_overview_screen.dart';
+/*import '../screens/categories/cars_screens.dart';
+import '../screens/categories/electronics_screen.dart';
+import '../screens/categories/game_Screen.dart';
+import '../screens/categories/gifts_screens.dart';
+import '../screens/categories/edit_cat_product.dart';*/
+
+
+
+
 
 
 
 
 
 var routes={
-
+/*
+  EditCatProductScreen.routeName: (_)=>EditCatProductScreen(),
+*/
   ProductDetailScreen.routeName: (_)=>ProductDetailScreen(),
   AuthScreen.routeName: (_)=>AuthScreen(),
   CartScreen.routeName: (_)=>CartScreen(),
@@ -30,6 +41,15 @@ var routes={
   FavoriteScreen.routeName:(_)=>FavoriteScreen(),
   ProductOverviewScreen.routeName:(_)=>ProductOverviewScreen(),
   AboutScreen.routeName :(_)=>AboutScreen(),
+/*
+  CarsProducts.routeName :(_)=>CarsProducts(),
+  ElectronicsProducts.routeName :(_)=>ElectronicsProducts(),
+  GamesProducts.routeName :(_)=>GamesProducts(),
+  GiftProducts.routeName :(_)=>GiftProducts(),
+*/
+
+
+
 
 
 

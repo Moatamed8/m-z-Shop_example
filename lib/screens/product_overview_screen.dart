@@ -14,7 +14,6 @@ import '../config/enums.dart';
 import '../widgets/home/discount_banner.dart';
 import '../widgets/home/categories.dart';
 
-import 'package:shimmer/shimmer.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   static const routeName = '/productoverview-screen';

@@ -79,6 +79,8 @@ class CheckoutCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  overflow:TextOverflow.clip,
+
                 ),
                 SizedBox(
                   width: getProportionateScreenWidth(190),

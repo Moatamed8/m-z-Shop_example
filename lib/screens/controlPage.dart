@@ -81,7 +81,7 @@ class _ControlState extends State<Control> {
                 ),
                 IconButton(
                   icon: SvgPicture.asset(
-                    "assets/icons/shopping-bag.svg",
+                    "assets/icons/Parcel.svg",
                     color: _counter==2
                         ? kPrimaryColor
                         : inActiveIconColor,

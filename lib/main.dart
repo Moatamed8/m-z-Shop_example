@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/screens/controlPage.dart';
+import 'package:shop/widgets/home/categories.dart';
 
 import './config/routes.dart';
 import './providers/auth.dart';
 import './providers/orders.dart';
 import './providers/cart.dart';
 import './providers/products.dart';
+/*
+import './providers/categroie.dart';
+*/
+
 
 import 'screens/auth_screen.dart';
 import 'screens/splash_Screen.dart';
@@ -27,6 +32,11 @@ class MyApp extends StatelessWidget {
             update: (ctx, authValue, previousProducts) => previousProducts
               ..getData(authValue.token, authValue.userId,
                   previousProducts == null ? null : previousProducts.items)),
+      /*  ChangeNotifierProxyProvider<AuthProvider, CategoriesProvider>(
+            create: (_) => CategoriesProvider(),
+            update: (ctx, authValue, previousProducts) => previousProducts
+              ..getData(authValue.token, authValue.userId,
+                  previousProducts == null ? null : previousProducts.catItems)),*/
         ChangeNotifierProxyProvider<AuthProvider, OrdersProvider>(
             create: (_) => OrdersProvider(),
             update: (ctx, authValue, previousOrders) => previousOrders

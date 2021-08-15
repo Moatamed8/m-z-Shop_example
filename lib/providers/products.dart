@@ -43,6 +43,8 @@ class ProductsProvider with ChangeNotifier {
           'https://shopflutterapp-9b1c3-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authtoken';
       final favRes = await http.get(url);
       final favData = jsonDecode(favRes.body);
+      print(favData);
+      
 
       final List<ProductProvider> loadedProducts = [];
       extractData.forEach((prodId, prodData) {
@@ -52,7 +54,7 @@ class ProductsProvider with ChangeNotifier {
           description: prodData['description'],
           price: prodData['price'],
           imageUrl: prodData['imageUrl'],
-          isFavorite: favData == null ? false : favData['prodId'] ?? false,
+          isFavorite: favData == null ? false : favData[prodId] ?? false,
         ));
       });
       _items = loadedProducts;
@@ -125,4 +127,10 @@ class ProductsProvider with ChangeNotifier {
     }
     existingPrduct = null;
   }
+
+
+
+
+
+
 }
